@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — Thanusha's Kitchen</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- All styles are in style.css -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ====================================================
+  TOP NAV
+==================================================== -->
+<nav class="checkout-nav">
+  <a href="index.html" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i> Back to Shop
+  </a>
+  <a href="index.html" class="checkout-nav-logo">
+    <img src="Assets/logo_final copy.png" alt="Thanusha's Kitchen" class="nav-logo-img" />
+  </a>
+  <div class="secure-badge">
+    <i class="fa-solid fa-shield-halved"></i> Secure Checkout
+  </div>
+</nav>
+
+<!-- ====================================================
+  PROGRESS STEPS
+==================================================== -->
+<div class="progress-bar">
+  <div class="progress-steps">
+    <div class="step active" id="step-indicator-1">
+      <div class="step-circle"><i class="fa-solid fa-check" id="step1-check" style="display:none;"></i><span id="step1-num">1</span></div>
+      <div class="step-label">Address</div>
+    </div>
+    <div class="step" id="step-indicator-2">
+      <div class="step-circle"><i class="fa-solid fa-check" id="step2-check" style="display:none;"></i><span id="step2-num">2</span></div>
+      <div class="step-label">Delivery</div>
+    </div>
+    <div class="step" id="step-indicator-3">
+      <div class="step-circle"><span>3</span></div>
+      <div class="step-label">Payment</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+  MAIN CHECKOUT LAYOUT
+==================================================== -->
+<div class="checkout-wrapper">
+
+  <!-- ==================== LEFT COLUMN ==================== -->
+  <div>
+
+    <!-- ── STEP 1: CONTACT & ADDRESS ── -->
+    <div id="step1" class="checkout-panel">
+      <div class="panel-header">
+        <div class="panel-header-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+          <h2>Delivery Address</h2>
+          <p>Where should we send your order?</p>
+        </div>
+      </div>
+
+      <div class="panel-body">
+
+        <!-- Contact Info -->
+        <div class="form-section-label">Contact Information</div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" placeholder="Ravi" />
+            <span class="field-error" id="err-firstName">Please enter your first name</span>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" placeholder="Sharma" />
+            <span class="field-error" id="err-lastName">Please enter your last name</span>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" placeholder="ravi@example.com" />
+            <span class="field-error" id="err-email">Please enter a valid email</span>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210" maxlength="13" />
+            <span class="field-error" id="err-phone">Please enter a valid phone number</span>
+          </div>
+        </div>
+
+        <!-- Shipping Address -->
+        <div class="form-section-label">Shipping Address</div>
+
+        <div class="form-group">
+          <label for="address1">Address Line 1 *</label>
+          <input type="text" id="address1" placeholder="House / Flat No., Building Name, Street" />
+          <span class="field-error" id="err-address1">Please enter your address</span>
+        </div>
+
+        <div class="form-group">
+          <label for="address2">Address Line 2 <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></label>
+          <input type="text" id="address2" placeholder="Area, Colony, Locality" />
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" placeholder="Hyderabad" />
+            <span class="field-error" id="err-city">Required</span>
+          </div>
+          <div class="form-group">
+            <label for="state">State *</label>
+            <select id="state">
+              <option value="">Select State</option>
+              <option>Andhra Pradesh</option>
+              <option>Telangana</option>
+              <option>Tamil Nadu</option>
+              <option>Karnataka</option>
+              <option>Kerala</option>
+              <option>Maharashtra</option>
+              <option>Gujarat</option>
+              <option>Rajasthan</option>
+              <option>Madhya Pradesh</option>
+              <option>Uttar Pradesh</option>
+              <option>Delhi</option>
+              <option>West Bengal</option>
+              <option>Punjab</option>
+              <option>Haryana</option>
+              <option>Odisha</option>
+              <option>Bihar</option>
+              <option>Jharkhand</option>
+              <option>Chhattisgarh</option>
+              <option>Assam</option>
+              <option>Other</option>
+            </select>
+            <span class="field-error" id="err-state">Required</span>
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode *</label>
+            <input type="text" id="pincode" placeholder="500001" maxlength="6" />
+            <span class="field-error" id="err-pincode">Enter valid 6-digit pincode</span>
+          </div>
+        </div>
+
+        <!-- Save address checkbox -->
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+          <input type="checkbox" id="saveAddress" style="accent-color:var(--red);width:16px;height:16px;cursor:pointer;" />
+          <label for="saveAddress" style="font-size:0.88rem;color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:0;">
+            Save this address for future orders
+          </label>
+        </div>
+
+      </div>
+
+      <div class="panel-actions">
+        <a href="index.html" class="btn-back">
+          <i class="fa-solid fa-arrow-left"></i> Back to Cart
+        </a>
+        <button class="btn-continue" onclick="goToStep(2)">
+          Continue to Delivery <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: DELIVERY OPTIONS ── -->
+    <div id="step2" class="checkout-panel" style="display:none;">
+      <div class="panel-header">
+        <div class="panel-header-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div>
+          <h2>Delivery Options</h2>
+          <p>Choose how fast you want your pickles!</p>
+        </div>
+      </div>
+
+      <div class="panel-body">
+
+        <!-- Delivery address summary -->
+        <div id="address-summary" style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.88rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <div>
+            <i class="fa-solid fa-location-dot" style="color:var(--red);margin-right:6px;"></i>
+            <span id="address-summary-text">—</span>
+          </div>
+          <button onclick="goToStep(1)" style="background:none;border:none;color:var(--red);font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;">Change</button>
+        </div>
+
+        <div class="form-section-label">Select Delivery Speed</div>
+
+        <div class="delivery-options">
+          <label class="delivery-option selected" id="opt-standard" onclick="selectDelivery('standard')">
+            <input type="radio" name="delivery" value="standard" checked />
+            <div class="delivery-option-body">
+              <div class="delivery-option-title">Standard Delivery</div>
+              <div class="delivery-option-desc">5–7 business days</div>
+            </div>
+            <div class="delivery-option-price" id="price-standard">₹60</div>
+          </label>
+          <label class="delivery-option" id="opt-express" onclick="selectDelivery('express')">
+            <input type="radio" name="delivery" value="express" />
+            <div class="delivery-option-body">
+              <div class="delivery-option-title">Express Delivery</div>
+              <div class="delivery-option-desc">2–3 business days</div>
+            </div>
+            <div class="delivery-option-price">₹120</div>
+          </label>
+        </div>
+
+        <div id="free-shipping-note" style="display:none;background:var(--green-bg);border:1px solid #a9dfbf;border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--green);font-weight:700;margin-top:4px;">
+          <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
+          You qualify for FREE Standard Shipping! (Order above ₹599)
+        </div>
+
+        <div class="form-section-label" style="margin-top:24px;">Delivery Instructions <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.82rem;">(Optional)</span></div>
+        <div class="form-group">
+          <textarea id="deliveryNote" placeholder="e.g. Leave at door, call before delivery, avoid afternoon..." style="min-height:80px;resize:vertical;"></textarea>
+        </div>
+
+      </div>
+
+      <div class="panel-actions">
+        <button class="btn-back" onclick="goToStep(1)">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+        <button class="btn-continue" onclick="goToStep(3)">
+          Continue to Payment <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: PAYMENT ── -->
+    <div id="step3" class="checkout-panel" style="display:none;">
+      <div class="panel-header">
+        <div class="panel-header-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <div>
+          <h2>Payment</h2>
+          <p>All transactions are 100% secure &amp; encrypted</p>
+        </div>
+      </div>
+
+      <div class="panel-body">
+
+        <!-- Order + delivery summary -->
+        <div id="payment-summary" style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.88rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div>
+            <i class="fa-solid fa-location-dot" style="color:var(--red);margin-right:6px;"></i>
+            <span id="payment-address-text">—</span>
+          </div>
+          <div>
+            <i class="fa-solid fa-truck-fast" style="color:var(--red);margin-right:6px;"></i>
+            <span id="payment-delivery-text">—</span>
+          </div>
+        </div>
+
+        <div class="form-section-label">Choose Payment Method</div>
+
+        <div class="payment-methods">
+
+          <!-- UPI -->
+          <div class="payment-method selected" id="pm-upi" onclick="selectPayment('upi')">
+            <div class="payment-method-header">
+              <input type="radio" name="payment" value="upi" checked />
+              <div class="payment-method-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+              <div>
+                <div class="payment-method-title">UPI</div>
+                <div class="payment-method-subtitle">GPay, PhonePe, Paytm, BHIM</div>
+              </div>
+            </div>
+            <div class="payment-method-body">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="upiId">UPI ID *</label>
+                <input type="text" id="upiId" placeholder="yourname@upi" />
+                <span class="field-error" id="err-upiId">Please enter your UPI ID</span>
+              </div>
+              <p class="upi-note">
+                <i class="fa-solid fa-circle-info"></i>
+                You will receive a payment request on your UPI app after placing the order.
+              </p>
+            </div>
+          </div>
+
+          <!-- Credit / Debit Card -->
+          <div class="payment-method" id="pm-card" onclick="selectPayment('card')">
+            <div class="payment-method-header">
+              <input type="radio" name="payment" value="card" />
+              <div class="payment-method-icon"><i class="fa-solid fa-credit-card"></i></div>
+              <div>
+                <div class="payment-method-title">Credit / Debit Card</div>
+                <div class="payment-method-subtitle">Visa, Mastercard, RuPay</div>
+              </div>
+            </div>
+            <div class="payment-method-body">
+              <div class="form-group">
+                <label for="cardName">Name on Card *</label>
+                <input type="text" id="cardName" placeholder="RAVI SHARMA" />
+                <span class="field-error" id="err-cardName">Please enter name on card</span>
+              </div>
+              <div class="form-group">
+                <label for="cardNumber">Card Number *</label>
+                <div class="card-input-wrap">
+                  <input type="text" id="cardNumber" placeholder="1234  5678  9012  3456" maxlength="19"
+                    oninput="formatCardNumber(this)" />
+                  <div class="card-icons">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                  </div>
+                </div>
+                <span class="field-error" id="err-cardNumber">Please enter a valid 16-digit card number</span>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="cardExpiry">Expiry Date *</label>
+                  <input type="text" id="cardExpiry" placeholder="MM / YY" maxlength="7"
+                    oninput="formatExpiry(this)" />
+                  <span class="field-error" id="err-cardExpiry">Enter valid expiry date</span>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="cardCvv">CVV *</label>
+                  <input type="password" id="cardCvv" placeholder="•••" maxlength="4" />
+                  <span class="field-error" id="err-cardCvv">Enter valid CVV</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Banking -->
+          <div class="payment-method" id="pm-netbanking" onclick="selectPayment('netbanking')">
+            <div class="payment-method-header">
+              <input type="radio" name="payment" value="netbanking" />
+              <div class="payment-method-icon"><i class="fa-solid fa-building-columns"></i></div>
+              <div>
+                <div class="payment-method-title">Net Banking</div>
+                <div class="payment-method-subtitle">All major Indian banks supported</div>
+              </div>
+            </div>
+            <div class="payment-method-body">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="bankSelect">Select Your Bank *</label>
+                <select id="bankSelect">
+                  <option value="">Choose a bank...</option>
+                  <option>State Bank of India (SBI)</option>
+                  <option>HDFC Bank</option>
+                  <option>ICICI Bank</option>
+                  <option>Axis Bank</option>
+                  <option>Kotak Mahindra Bank</option>
+                  <option>Punjab National Bank</option>
+                  <option>Bank of Baroda</option>
+                  <option>Canara Bank</option>
+                  <option>Union Bank of India</option>
+                  <option>Other</option>
+                </select>
+                <span class="field-error" id="err-bankSelect">Please select your bank</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cash on Delivery -->
+          <div class="payment-method" id="pm-cod" onclick="selectPayment('cod')">
+            <div class="payment-method-header">
+              <input type="radio" name="payment" value="cod" />
+              <div class="payment-method-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+              <div>
+                <div class="payment-method-title">Cash on Delivery</div>
+                <div class="payment-method-subtitle">Pay when your order arrives</div>
+              </div>
+            </div>
+            <div class="payment-method-body">
+              <p style="font-size:0.88rem;color:var(--muted);">
+                <i class="fa-solid fa-circle-info" style="margin-right:6px;color:var(--red);"></i>
+                A small COD handling fee of <strong style="color:var(--brown);">₹30</strong> will be added to your order.
+                Please keep exact change ready at the time of delivery.
+              </p>
+            </div>
+          </div>
+
+        </div><!-- end payment-methods -->
+
+        <!-- Place Order Button -->
+        <button class="btn-place-order" onclick="placeOrder()">
+          <i class="fa-solid fa-lock"></i> Place Order &amp; Pay Securely
+        </button>
+
+        <p style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:14px;">
+          By placing your order you agree to our
+          <a href="#" style="color:var(--red);font-weight:700;">Terms &amp; Conditions</a> and
+          <a href="#" style="color:var(--red);font-weight:700;">Privacy Policy</a>
+        </p>
+
+      </div>
+
+      <div class="panel-actions" style="justify-content:flex-start;">
+        <button class="btn-back" onclick="goToStep(2)">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SUCCESS SCREEN ── -->
+    <div id="step-success" class="checkout-panel" style="display:none;">
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for ordering from Thanusha's Kitchen.</p>
+        <p>A confirmation has been sent to your email.</p>
+        <div class="order-id" id="orderIdDisplay">ORDER #TK-000000</div>
+        <p style="font-size:0.88rem;">
+          <i class="fa-solid fa-truck-fast" style="color:var(--red);margin-right:6px;"></i>
+          Your fresh pickles will be on their way soon!
+        </p>
+        <div class="success-actions" style="margin-top:28px;">
+          <a href="index.html" class="btn-continue" style="text-decoration:none;">
+            <i class="fa-solid fa-shop"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end left column -->
+
+
+  <!-- ==================== RIGHT COLUMN — ORDER SUMMARY ==================== -->
+  <div class="order-summary">
+
+    <div class="summary-header">
+      <h3>Order Summary</h3>
+      <span class="summary-count" id="summary-count">0 items</span>
+    </div>
+
+    <!-- Items list -->
+    <div class="summary-items" id="summaryItems">
+      <p style="text-align:center;color:var(--muted);font-size:0.88rem;padding:20px 0;">
+        Your cart is empty.
+        <a href="index.html" style="color:var(--red);font-weight:700;">Shop now →</a>
+      </p>
+    </div>
+
+    <!-- Coupon -->
+    <div class="summary-coupon">
+      <div class="coupon-wrap">
+        <input type="text" id="couponInput" placeholder="Enter coupon code" />
+        <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="coupon-success" id="couponSuccess">
+        <i class="fa-solid fa-tag" style="margin-right:5px;"></i>
+        Coupon applied! You saved ₹<span id="couponSaving">0</span>
+      </div>
+    </div>
+
+    <!-- Totals -->
+    <div class="summary-totals">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="summarySubtotal">₹0</span>
+      </div>
+      <div class="summary-row" id="discountRow" style="display:none;">
+        <span>Discount</span>
+        <span style="color:var(--green);font-weight:700;" id="summaryDiscount">-₹0</span>
+      </div>
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span id="summaryDelivery">₹60</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="summaryTotal">₹0</span>
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="summary-trust">
+      <div class="trust-row"><i class="fa-solid fa-shield-halved"></i> 100% secure &amp; encrypted payment</div>
+      <div class="trust-row"><i class="fa-solid fa-rotate-left"></i> Easy 7-day return policy</div>
+      <div class="trust-row"><i class="fa-solid fa-leaf"></i> No preservatives — packed fresh</div>
+    </div>
+
+  </div><!-- end right column -->
+
+</div><!-- end checkout-wrapper -->
+
+
+<!-- ====================================================
+  JAVASCRIPT
+==================================================== -->
+<script src="products.js"></script>
+<script>
+
+/* =====================================================
+   STATE
+===================================================== */
+let currentStep     = 1;
+let selectedDelivery = 'standard';
+let selectedPayment  = 'upi';
+let deliveryCharge   = 60;
+let discount         = 0;
+
+/* =====================================================
+   LOAD CART FROM LOCALSTORAGE
+   The main site stores cart in a JS variable — since
+   checkout.html is a separate page we pass cart data
+   via sessionStorage (set when "Proceed" is clicked).
+===================================================== */
+function getCartItems() {
+  try {
+    const raw = sessionStorage.getItem('tk_cart');
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/* =====================================================
+   RENDER ORDER SUMMARY
+===================================================== */
+function renderSummary() {
+  const items    = getCartItems();
+  const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
+  const total    = subtotal - discount + (subtotal >= 599 && selectedDelivery === 'standard' ? 0 : deliveryCharge);
+
+  /* Item count badge */
+  const totalQty = items.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('summary-count').textContent =
+    totalQty + (totalQty === 1 ? ' item' : ' items');
+
+  /* Items list */
+  const listEl = document.getElementById('summaryItems');
+  if (items.length === 0) {
+    listEl.innerHTML = `<p style="text-align:center;color:var(--muted);font-size:0.88rem;padding:20px 0;">
+      Your cart is empty. <a href="index.html" style="color:var(--red);font-weight:700;">Shop now →</a></p>`;
+  } else {
+    listEl.innerHTML = items.map(item => `
+      <div class="summary-item">
+        <img class="summary-item-img" src="${item.img}" alt="${item.name}" />
+        <div class="summary-item-info">
+          <div class="summary-item-name">${item.name}</div>
+          <div class="summary-item-meta">${item.weight} × ${item.qty}</div>
+        </div>
+        <div class="summary-item-price">₹${item.price * item.qty}</div>
+      </div>`).join('');
+  }
+
+  /* Free shipping threshold */
+  const freeShip  = subtotal >= 599 && selectedDelivery === 'standard';
+  const finalDelivery = freeShip ? 0 : deliveryCharge;
+  const finalTotal    = subtotal - discount + finalDelivery;
+
+  document.getElementById('summarySubtotal').textContent = `₹${subtotal}`;
+  document.getElementById('summaryDelivery').textContent = freeShip
+    ? `<span class="free">FREE</span>` : `₹${finalDelivery}`;
+  document.getElementById('summaryTotal').textContent    = `₹${finalTotal}`;
+
+  /* Show free shipping note on step 2 */
+  const freeNote = document.getElementById('free-shipping-note');
+  if (freeNote) freeNote.style.display = freeShip ? 'block' : 'none';
+
+  /* Standard delivery price label */
+  const priceStd = document.getElementById('price-standard');
+  if (priceStd) priceStd.innerHTML = freeShip ? '<span class="free">FREE</span>' : '₹60';
+
+  /* Discount row */
+  if (discount > 0) {
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('summaryDiscount').textContent = `-₹${discount}`;
+  }
+}
+
+/* =====================================================
+   STEP NAVIGATION
+===================================================== */
+function goToStep(step) {
+  /* Validate step 1 before moving forward */
+  if (step === 2 && currentStep === 1) {
+    if (!validateStep1()) return;
+    /* Populate address summary */
+    const city  = document.getElementById('city').value;
+    const state = document.getElementById('state').value;
+    const pin   = document.getElementById('pincode').value;
+    const name  = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+    const addr  = document.getElementById('address1').value;
+    document.getElementById('address-summary-text').textContent =
+      `${name} — ${addr}, ${city}, ${state} ${pin}`;
+  }
+
+  /* Validate step 2 before moving forward */
+  if (step === 3 && currentStep === 2) {
+    const addr  = document.getElementById('address-summary-text').textContent;
+    const dText = selectedDelivery === 'express' ? 'Express (2–3 days) — ₹120' : 'Standard (5–7 days)';
+    document.getElementById('payment-address-text').textContent = addr;
+    document.getElementById('payment-delivery-text').textContent = dText;
+  }
+
+  /* Hide current, show target */
+  document.getElementById('step' + currentStep).style.display = 'none';
+  document.getElementById('step' + step).style.display = 'block';
+
+  /* Update progress indicators */
+  updateProgressBar(step);
+
+  currentStep = step;
+  renderSummary();
+
+  /* Scroll to top of form */
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* =====================================================
+   PROGRESS BAR UPDATE
+===================================================== */
+function updateProgressBar(activeStep) {
+  for (let i = 1; i <= 3; i++) {
+    const indicator = document.getElementById('step-indicator-' + i);
+    const numEl     = document.getElementById('step' + i + '-num');
+    const checkEl   = document.getElementById('step' + i + '-check');
+    indicator.classList.remove('active', 'completed');
+
+    if (i < activeStep) {
+      indicator.classList.add('completed');
+      if (numEl) numEl.style.display = 'none';
+      if (checkEl) checkEl.style.display = 'inline';
+    } else if (i === activeStep) {
+      indicator.classList.add('active');
+      if (numEl) numEl.style.display = 'inline';
+      if (checkEl) checkEl.style.display = 'none';
+    } else {
+      if (numEl) numEl.style.display = 'inline';
+      if (checkEl) checkEl.style.display = 'none';
+    }
+  }
+}
+
+/* =====================================================
+   STEP 1 VALIDATION
+===================================================== */
+function validateStep1() {
+  let valid = true;
+
+  const required = [
+    { id: 'firstName', errId: 'err-firstName', check: v => v.trim().length > 1 },
+    { id: 'lastName',  errId: 'err-lastName',  check: v => v.trim().length > 1 },
+    { id: 'email',     errId: 'err-email',     check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'phone',     errId: 'err-phone',     check: v => /^[6-9]\d{9}$/.test(v.replace(/\D/g,'')) },
+    { id: 'address1',  errId: 'err-address1',  check: v => v.trim().length > 4 },
+    { id: 'city',      errId: 'err-city',      check: v => v.trim().length > 1 },
+    { id: 'state',     errId: 'err-state',     check: v => v !== '' },
+    { id: 'pincode',   errId: 'err-pincode',   check: v => /^\d{6}$/.test(v.trim()) },
+  ];
+
+  required.forEach(({ id, errId, check }) => {
+    const input = document.getElementById(id);
+    const err   = document.getElementById(errId);
+    if (!check(input.value)) {
+      input.classList.add('error');
+      err.classList.add('show');
+      valid = false;
+    } else {
+      input.classList.remove('error');
+      err.classList.remove('show');
+    }
+  });
+
+  return valid;
+}
+
+/* Clear error on input */
+document.addEventListener('input', function (e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+    e.target.classList.remove('error');
+    const errEl = document.getElementById('err-' + e.target.id);
+    if (errEl) errEl.classList.remove('show');
+  }
+});
+
+/* =====================================================
+   DELIVERY SELECTION
+===================================================== */
+function selectDelivery(type) {
+  selectedDelivery = type;
+  deliveryCharge   = type === 'express' ? 120 : 60;
+
+  document.querySelectorAll('.delivery-option').forEach(el => el.classList.remove('selected'));
+  document.getElementById('opt-' + type).classList.add('selected');
+
+  renderSummary();
+}
+
+/* =====================================================
+   PAYMENT METHOD SELECTION
+===================================================== */
+function selectPayment(method) {
+  selectedPayment = method;
+  document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+  document.getElementById('pm-' + method).classList.add('selected');
+
+  /* Sync radio buttons */
+  document.querySelectorAll('input[name="payment"]').forEach(r => {
+    r.checked = r.value === method;
+  });
+}
+
+/* =====================================================
+   CARD NUMBER & EXPIRY FORMATTING
+===================================================== */
+function formatCardNumber(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1  ').trim();
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 3) v = v.substring(0, 2) + ' / ' + v.substring(2);
+  input.value = v;
+}
+
+/* =====================================================
+   COUPON CODE
+===================================================== */
+function applyCoupon() {
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  const coupons = { 'WELCOME10': 10, 'TASTY50': 50, 'THANUSHA': 30 };
+
+  if (coupons[code]) {
+    discount = coupons[code];
+    document.getElementById('couponSaving').textContent = discount;
+    document.getElementById('couponSuccess').style.display = 'block';
+    document.getElementById('couponInput').disabled = true;
+    document.querySelector('.coupon-btn').disabled = true;
+    document.querySelector('.coupon-btn').textContent = 'Applied ✓';
+    renderSummary();
+  } else {
+    document.getElementById('couponInput').style.borderColor = '#e74c3c';
+    document.getElementById('couponInput').placeholder = 'Invalid code — try again';
+    setTimeout(() => {
+      document.getElementById('couponInput').style.borderColor = '';
+      document.getElementById('couponInput').placeholder = 'Enter coupon code';
+    }, 2000);
+  }
+}
+
+/* =====================================================
+   PAYMENT VALIDATION
+===================================================== */
+function validatePayment() {
+  let valid = true;
+
+  if (selectedPayment === 'upi') {
+    const upi = document.getElementById('upiId').value.trim();
+    const err = document.getElementById('err-upiId');
+    if (!/^[\w.\-]+@[\w]+$/.test(upi)) {
+      document.getElementById('upiId').classList.add('error');
+      err.classList.add('show');
+      valid = false;
+    }
+  }
+
+  if (selectedPayment === 'card') {
+    const checks = [
+      { id: 'cardName',   errId: 'err-cardName',   check: v => v.trim().length > 2 },
+      { id: 'cardNumber', errId: 'err-cardNumber', check: v => v.replace(/\s/g,'').length === 16 },
+      { id: 'cardExpiry', errId: 'err-cardExpiry', check: v => /^\d{2}\s\/\s\d{2}$/.test(v) },
+      { id: 'cardCvv',    errId: 'err-cardCvv',    check: v => /^\d{3,4}$/.test(v) },
+    ];
+    checks.forEach(({ id, errId, check }) => {
+      const input = document.getElementById(id);
+      const err   = document.getElementById(errId);
+      if (!check(input.value)) {
+        input.classList.add('error');
+        err.classList.add('show');
+        valid = false;
+      }
+    });
+  }
+
+  if (selectedPayment === 'netbanking') {
+    const bank = document.getElementById('bankSelect').value;
+    const err  = document.getElementById('err-bankSelect');
+    if (!bank) {
+      document.getElementById('bankSelect').classList.add('error');
+      err.classList.add('show');
+      valid = false;
+    }
+  }
+
+  return valid;
+}
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+function placeOrder() {
+  if (!validatePayment()) return;
+
+  /* Simulate processing */
+  const btn = document.querySelector('.btn-place-order');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
+  setTimeout(() => {
+    /* Generate a random order ID */
+    const orderId = 'TK-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('orderIdDisplay').textContent = 'ORDER #' + orderId;
+
+    /* Hide step 3, show success */
+    document.getElementById('step3').style.display = 'none';
+    document.getElementById('step-success').style.display = 'block';
+
+    /* Clear cart from sessionStorage */
+    sessionStorage.removeItem('tk_cart');
+
+    /* Scroll to top */
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 2200);
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+renderSummary();
+
+</script>
+</body>
+</html>

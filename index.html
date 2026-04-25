@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanusha's Kitchen – Authentic Homemade Andhra Pickles</title>
+
+  <!-- ================================================
+    STEP 1 — Google Fonts (load before stylesheet)
+  ================================================= -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- ================================================
+    STEP 2 — Font Awesome Icons
+  ================================================= -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- ================================================
+    STEP 3 — Your CSS File
+    Change the path below if your file is in a subfolder.
+    Example: href="assets/css/style.css"
+  ================================================= -->
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+<!-- ====================================================
+  NAVBAR
+==================================================== -->
+<nav id="navbar">
+  <div class="container nav-inner">
+
+    <!-- Brand Logo -->
+    <a href="#home" class="nav-logo">
+        <img src="Assets/logo_final copy.png" alt="Thanusha's Kitchen" class="nav-logo-img" />
+
+      <!-- Option B: Icon + text logo (active by default, delete when using image) -->
+      <!-- <div class="logo-icon"><i class="fa-solid fa-pepper-hot"></i></div> -->
+      <div>
+        <div>Thanusha's Kitchen</div>
+        <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:'Lato',sans-serif;">Pickles</div>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- Cart Button + Mobile Hamburger -->
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button class="nav-cart-btn" id="cartBtn" onclick="openCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Cart
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ====================================================
+  HERO SECTION
+==================================================== -->
+<section id="home">
+  <div class="hero-content">
+
+    <div class="hero-tag">
+      <i class="fa-solid fa-star" style="font-size:0.7rem;margin-right:5px;"></i>
+      100% Homemade &amp; Authentic
+    </div>
+
+    <h1>
+      Authentic Homemade<br />
+      <span>Andhra Pickles</span><br />
+      Delivered to Your Doorstep
+    </h1>
+
+    <p>
+      Prepared with grandma's secret recipes, sun-dried spices, cold-pressed oils
+      &amp; zero preservatives. Pure taste of Andhra Pradesh — straight from our
+      kitchen to yours.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#products" class="btn btn-primary">
+        <i class="fa-solid fa-bag-shopping" style="margin-right:8px;"></i>Shop Now
+      </a>
+      <a href="#about" class="btn btn-secondary" style="color:white;border-color:rgba(255,255,255,0.90);background:rgba(255,255,255,0.10);backdrop-filter:blur(4px);">
+        Our Story
+      </a>
+    </div>
+
+    <!-- Honest trust stats — no fake customer numbers -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">100%</div>
+        <div class="label">Homemade</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">0%</div>
+        <div class="label">Preservatives</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">5+</div>
+        <div class="label">Pickle Varieties</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">Pan</div>
+        <div class="label">India Delivery</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ====================================================
+  WHY US STRIP
+==================================================== -->
+<div id="why-strip">
+  <div class="container why-strip-inner">
+    <div class="why-item"><i class="fa-solid fa-truck-fast"></i> Free Shipping above ₹599</div>
+    <div class="why-item"><i class="fa-solid fa-shield-halved"></i> 100% Natural &amp; Safe</div>
+    <div class="why-item"><i class="fa-solid fa-leaf"></i> No Preservatives</div>
+    <div class="why-item"><i class="fa-solid fa-rotate-left"></i> Easy 7-Day Returns</div>
+    <div class="why-item"><i class="fa-solid fa-globe"></i> NRI International Shipping</div>
+  </div>
+</div>
+
+
+<!-- ====================================================
+  PRODUCTS SECTION
+  Two category sections — Pickles and Podis & Spices.
+  Cards are injected by renderProducts() in script.js.
+==================================================== -->
+<section id="products">
+  <div class="container">
+
+    <p class="section-title reveal">Our Products</p>
+    <p class="section-subtitle reveal">All made by hand, in small batches, with love &amp; tradition</p>
+
+    <!-- Category Tab Buttons -->
+    <div class="category-tabs reveal">
+      <button class="cat-tab active" onclick="switchTab('pickles', this)">
+        <i class="fa-solid fa-jar"></i> Pickles
+      </button>
+      <button class="cat-tab" onclick="switchTab('podis', this)">
+        <i class="fa-solid fa-mortar-pestle"></i> Podis &amp; Spices
+      </button>
+    </div>
+
+    <!-- Pickles Section -->
+    <div class="category-section" id="section-pickles">
+      <div class="category-header reveal">
+        <div class="category-header-icon"><i class="fa-solid fa-jar"></i></div>
+        <div>
+          <h3>Homemade Pickles</h3>
+          <p>Traditional Andhra pickles — sun-dried, hand-seasoned, zero preservatives</p>
+        </div>
+      </div>
+      <div class="products-grid" id="grid-pickles">
+        <!-- Filled by renderProducts() in script.js -->
+      </div>
+    </div>
+
+    <!-- Podis & Spices Section -->
+    <div class="category-section" id="section-podis" style="display:none;">
+      <div class="category-header reveal">
+        <div class="category-header-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
+        <div>
+          <h3>Podis &amp; Spices</h3>
+          <p>Freshly ground spice powders — roasted daily, bursting with authentic flavor</p>
+        </div>
+      </div>
+      <div class="products-grid" id="grid-podis">
+        <!-- Filled by renderProducts() in script.js -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ====================================================
+  ABOUT SECTION
+==================================================== -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Image Column -->
+      <div class="about-img-wrap reveal">
+        <img
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
+          alt="Traditional Andhra pickle preparation"
+        />
+        <div class="about-img-badge">
+          <div class="big">25+</div>
+          <div class="small">Years of<br>Tradition</div>
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="about-text reveal">
+        <h2>A Family Recipe<br />Passed Down Generations</h2>
+        <p>
+          Thanusha's Kitchen was born from a simple desire — to share the authentic,
+          soul-warming flavors of traditional Andhra kitchen with every household
+          across India and beyond.
+        </p>
+        <p>
+          Our pickles are prepared by hand, exactly as our grandmothers taught us.
+          We source raw mangoes from the famous Gir belt, tender gongura leaves
+          fresh from Guntur farms, and aromatic spices directly from Rajahmundry
+          spice markets.
+        </p>
+        <p>
+          Every batch is sun-dried for the right number of days, seasoned with
+          precise proportions of chilli powder, mustard oil and sea salt — and
+          never touched by preservatives or artificial color.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feat">
+            <i class="fa-solid fa-seedling"></i>
+            <div><strong>Natural Ingredients</strong>Farm-fresh, locally sourced produce</div>
+          </div>
+          <div class="about-feat">
+            <i class="fa-solid fa-ban"></i>
+            <div><strong>No Preservatives</strong>Pure &amp; chemical-free always</div>
+          </div>
+          <div class="about-feat">
+            <i class="fa-solid fa-hand-sparkles"></i>
+            <div><strong>Handcrafted</strong>Small batches, maximum care</div>
+          </div>
+          <div class="about-feat">
+            <i class="fa-solid fa-certificate"></i>
+            <div><strong>FSSAI Certified</strong>Safe, hygienic &amp; compliant</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+  OUR PROMISE SECTION
+==================================================== -->
+<section id="promise">
+  <div class="container">
+
+    <p class="section-title reveal">The Thanusha's Kitchen Promise</p>
+    <p class="section-subtitle reveal">Every jar we send carries our name — and we take that seriously</p>
+
+    <!-- Big Red Banner -->
+    <div class="promise-banner reveal">
+      <div class="promise-banner-icon"><i class="fa-solid fa-heart"></i></div>
+      <div class="promise-banner-text">
+        <h3>Made with love, delivered with care</h3>
+        <p>
+          We are just starting out, but our recipes are generations old. Every jar is
+          prepared by hand in a clean, hygienic kitchen — no shortcuts, no compromises,
+          no preservatives. This is real homemade food and we stand behind every spoonful.
+        </p>
+      </div>
+    </div>
+
+    <!-- 6 Promise Cards -->
+    <div class="promise-grid">
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-mortar-pestle"></i></div>
+        <h4>Traditional Recipes</h4>
+        <p>Our pickle recipes come from generations of Andhra kitchens. No shortcuts, no factory flavors — just authentic taste exactly as it was meant to be.</p>
+      </div>
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-flask-vial"></i></div>
+        <h4>Zero Preservatives</h4>
+        <p>We use only natural ingredients — salt, oil, spices and time. No artificial colors, no chemicals, no additives. Clean food for your family.</p>
+      </div>
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-hand-holding-heart"></i></div>
+        <h4>Small Batch Care</h4>
+        <p>We prepare in small batches so every jar gets personal attention. You're not getting factory produce — you're getting home-kitchen quality.</p>
+      </div>
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-box-open"></i></div>
+        <h4>Packed Fresh</h4>
+        <p>Each order is packed fresh after you place it. We don't pre-fill shelves — your pickle is prepared and sealed specifically for your order.</p>
+      </div>
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+        <h4>Hygienic Kitchen</h4>
+        <p>We follow strict hygiene practices — clean workspace, sterilized jars, and careful handling from preparation to packaging every single time.</p>
+      </div>
+
+      <div class="promise-card reveal">
+        <div class="promise-icon-wrap"><i class="fa-solid fa-rotate-left"></i></div>
+        <h4>Satisfaction Guarantee</h4>
+        <p>Not happy with your order? We'll make it right — no questions asked. Your trust matters more to us than anything else.</p>
+      </div>
+
+    </div>
+
+    <!-- Founder Personal Note -->
+    <div class="founder-note reveal">
+      <div class="founder-avatar"><i class="fa-solid fa-user-chef"></i></div>
+      <div class="founder-quote">
+        <p>
+          "I started Thanusha's Kitchen because I wanted people everywhere to taste the
+          exact same pickles my grandmother made — full of love, spice and honesty. This
+          is just the beginning of our journey and I'm so grateful you're here."
+        </p>
+        <span>— Thanusha, Founder &amp; Home Chef</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ====================================================
+  CONTACT SECTION
+==================================================== -->
+<section id="contact">
+  <div class="container">
+
+    <p class="section-title reveal">Get in Touch</p>
+    <p class="section-subtitle reveal">We'd love to hear from you — questions, bulk orders, or just saying hi!</p>
+
+    <div class="contact-grid">
+
+      <!-- Contact Details -->
+      <div class="contact-info reveal">
+        <h3>Contact Information</h3>
+        <p>Reach out to us anytime. We typically respond within 24 hours on business days.</p>
+
+        <div class="contact-detail">
+          <div class="icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <div class="label">Phone</div>
+            <div class="value">+91 98765 43210</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="icon"><i class="fa-regular fa-envelope"></i></div>
+          <div>
+            <div class="label">Email</div>
+            <div class="value">orders@thanushaskitchen.com</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="label">Address</div>
+            <div class="value">Guntur, Andhra Pradesh – 522001</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="icon"><i class="fa-regular fa-clock"></i></div>
+          <div>
+            <div class="label">Working Hours</div>
+            <div class="value">Mon – Sat: 9 AM – 7 PM IST</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="reveal">
+        <div class="contact-form" id="contactForm">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Ravi" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Sharma" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="femail">Email Address</label>
+            <input type="email" id="femail" placeholder="ravi@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="fsubject">Subject</label>
+            <select id="fsubject">
+              <option value="">Select a topic...</option>
+              <option>Order Enquiry</option>
+              <option>Bulk Order / Wholesale</option>
+              <option>Feedback</option>
+              <option>International Shipping</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fmsg">Message</label>
+            <textarea id="fmsg" placeholder="Write your message here..."></textarea>
+          </div>
+
+          <!-- submitForm() is defined in script.js -->
+          <button class="btn btn-primary" onclick="submitForm()" style="align-self:flex-start;padding:13px 32px;">
+            <i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Message
+          </button>
+
+          <!-- Shown after successful form submission -->
+          <div class="form-success" id="formSuccess">
+            <i class="fa-solid fa-circle-check" style="margin-right:8px;"></i>
+            Thank you! We'll get back to you within 24 hours.
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====================================================
+  FOOTER
+==================================================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div class="footer-brand">
+        <!--
+          FOOTER LOGO — Option A: Use your own image file
+          Uncomment the line below and delete Option B
+
+          <img src="images/logo-white.png" alt="Thanusha's Kitchen" class="footer-logo-img" />
+        -->
+
+        <!-- Option B: Icon + text logo (active by default) -->
+        <h3><i class="fa-solid fa-pepper-hot" style="margin-right:8px;"></i>Thanusha's Kitchen</h3>
+        <p>Authentic homemade Andhra pickles crafted with tradition, love, and the finest natural ingredients. No preservatives, pure flavors.</p>
+        <div class="footer-social">
+          <div class="social-icon"><i class="fa-brands fa-instagram"></i></div>
+          <div class="social-icon"><i class="fa-brands fa-facebook"></i></div>
+          <div class="social-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="social-icon"><i class="fa-brands fa-youtube"></i></div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Pickle Links -->
+      <div class="footer-col">
+        <h4>Our Pickles</h4>
+        <ul>
+          <li><a href="#products">Avakaya</a></li>
+          <li><a href="#products">Gongura</a></li>
+          <li><a href="#products">Lemon Pickle</a></li>
+          <li><a href="#products">Garlic Pickle</a></li>
+          <li><a href="#products">Tomato Pickle</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Links -->
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#contact">Track Order</a></li>
+          <li><a href="#contact">Return Policy</a></li>
+          <li><a href="#contact">Bulk Orders</a></li>
+          <li><a href="#contact">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Copyright Bar -->
+    <div class="footer-bottom">
+      <span>© 2025 Thanusha's Kitchen. All rights reserved.</span>
+      <span>Made with <i class="fa-solid fa-heart" style="color:var(--yellow);"></i> in Andhra Pradesh, India</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ====================================================
+  CART SIDEBAR (slides in from right)
+==================================================== -->
+<!-- Dark background overlay — clicking it closes the cart -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- The actual cart panel -->
+<div class="cart-sidebar" id="cartSidebar">
+
+  <div class="cart-header">
+    <h2><i class="fa-solid fa-cart-shopping" style="margin-right:8px;color:var(--red);"></i>Your Cart</h2>
+    <button class="cart-close" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- Cart items are injected here by updateCartUI() in script.js -->
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <p style="font-weight:700;color:var(--brown);">Your cart is empty</p>
+      <p style="font-size:0.85rem;margin-top:6px;">Add some delicious pickles!</p>
+    </div>
+  </div>
+
+  <!-- Cart footer — hidden until an item is added -->
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total Amount</span>
+      <span class="cart-total-amount" id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="goToCheckout()">
+      <i class="fa-solid fa-lock" style="margin-right:8px;"></i>Proceed to Checkout
+    </button>
+    <p style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:10px;">
+      <i class="fa-solid fa-shield-halved" style="color:#27ae60;margin-right:4px;"></i>
+      Secure payment · Free shipping above ₹599
+    </p>
+  </div>
+
+</div>
+
+
+<!-- ====================================================
+  TOAST NOTIFICATION
+  Text injected by showToast() in script.js
+==================================================== -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ====================================================
+  STEP 4 — Your JavaScript File (always at the bottom,
+  after all HTML so the DOM is fully loaded first)
+  Change paths if your files are in a subfolder.
+  IMPORTANT: products.js must come BEFORE script.js
+==================================================== -->
+<!-- product data — edit this file to add/remove products -->
+<script src="products.js"></script>
+
+<!-- all website logic — no need to edit this file -->
+<script src="script.js"></script>
+
+</body>
+</html>

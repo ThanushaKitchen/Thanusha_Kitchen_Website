@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Avakaya Pickle",
+    "subtitle": "Mango Pickle",
+    "price": 399,
+    "weight": "500g",
+    "description": "Traditional spicy mango pickle made with authentic Andhra recipe. Bold, tangy and finger-licking good.",
+    "badge": "Bestseller",
+    "img": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600&q=80",
+    "spice": 5
+  },
+  {
+    "id": 2,
+    "name": "Gongura Pickle",
+    "subtitle": "Sorrel Leaves",
+    "price": 349,
+    "weight": "500g",
+    "description": "Tangy and spicy Gongura pickle rich in flavor. Andhra's pride with earthy sour notes.",
+    "badge": "Popular",
+    "img": "https://images.unsplash.com/photo-1562802378-063ec186a863?w=600&q=80",
+    "spice": 4
+  },
+  {
+    "id": 3,
+    "name": "Lemon Pickle",
+    "subtitle": "Nimma Pachadi",
+    "price": 299,
+    "weight": "500g",
+    "description": "Homemade lemon pickle with perfectly balanced spice and sour taste. Goes with everything.",
+    "badge": "Mild",
+    "img": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=600&q=80",
+    "spice": 3
+  },
+  {
+    "id": 4,
+    "name": "Garlic Pickle",
+    "subtitle": "Velluli Pachadi",
+    "price": 329,
+    "weight": "500g",
+    "description": "Strong-flavored garlic pickle prepared with traditional Andhra spices. A condiment lover's delight.",
+    "badge": "Hot",
+    "img": "https://images.unsplash.com/photo-1596273501645-bdd2e0b10f95?w=600&q=80",
+    "spice": 5
+  },
+  {
+    "id": 5,
+    "name": "Tomato Pickle",
+    "subtitle": "Tomato Pachadi",
+    "price": 279,
+    "weight": "500g",
+    "description": "Andhra-style tomato pickle with a rich, tangy taste and aromatic tempering. Perfect for rice.",
+    "badge": "New",
+    "img": "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&q=80",
+    "spice": 3
+  },
+  {
+    "id": 6,
+    "name": "Tomato Pickle",
+    "subtitle": "Tomato Pachadi",
+    "price": 279,
+    "weight": "500g",
+    "description": "Andhra-style tomato pickle with a rich, tangy taste and aromatic tempering. Perfect for rice.",
+    "badge": "New",
+    "img": "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&q=80",
+    "spice": 5
+  }
+]
