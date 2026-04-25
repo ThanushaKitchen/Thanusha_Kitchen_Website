@@ -196,19 +196,43 @@
 <section id="about">
   <div class="container">
     <div class="about-grid">
-
-      <!-- Image Column -->
-      <div class="about-img-wrap reveal">
-        <img
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
-          alt="Traditional Andhra pickle preparation"
-        />
-        <div class="about-img-badge">
-          <div class="big">25+</div>
-          <div class="small">Years of<br>Tradition</div>
+ 
+      <!-- Image Column — Godavari + Founder stacked layout -->
+      <div class="about-img-col reveal">
+ 
+        <!-- Main photo — Godavari river / Rajahmundry landscape -->
+        <div class="about-img-main">
+          <img
+            src="Assets/godavari.jpg"
+            alt="Godavari river, Rajahmundry"
+            onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80';"
+          />
+          <div class="about-img-badge">
+            <div class="big">25+</div>
+            <div class="small">Years of<br>Tradition</div>
+          </div>
         </div>
+ 
+        <!-- Founder photo card — overlaps bottom of main photo -->
+        <div class="about-founder-card">
+          <div class="about-founder-img-wrap">
+            <img
+              src="Assets/founder.jpg"
+              alt="Thanusha — Founder of Thanusha's Kitchen"
+              onerror="this.src='https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=400&q=80';"
+            />
+          </div>
+          <div class="about-founder-info">
+            <div class="about-founder-name">Thanusha</div>
+            <div class="about-founder-role">Founder &amp; Home Chef</div>
+            <div class="about-founder-location">
+              <i class="fa-solid fa-location-dot"></i> Rajahmundry, Andhra Pradesh
+            </div>
+          </div>
+        </div>
+ 
       </div>
-
+ 
       <!-- Text Column -->
       <div class="about-text reveal">
         <h2>A Family Recipe<br />Passed Down Generations</h2>
@@ -228,7 +252,7 @@
           precise proportions of chilli powder, mustard oil and sea salt — and
           never touched by preservatives or artificial color.
         </p>
-
+ 
         <div class="about-features">
           <div class="about-feat">
             <i class="fa-solid fa-seedling"></i>
@@ -248,7 +272,7 @@
           </div>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </section>
