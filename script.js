@@ -81,7 +81,7 @@ async function renderProducts() {
   let productData = [];
 
   try {
-    const response = await fetch('http://localhost:4000/api/products');
+    const response = await fetch('https://thanushakitchenwebsite-production.up.railway.appapi/products');
     if (response.ok) {
       const result = await response.json();
       if (result.success) {
@@ -304,7 +304,7 @@ async function submitForm() {
   if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
   try {
-    const response = await fetch('http://localhost:4000/api/contact', {
+    const response = await fetch('https://thanushakitchenwebsite-production.up.railway.app/api/contact', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

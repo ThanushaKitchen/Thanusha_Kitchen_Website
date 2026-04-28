@@ -26,6 +26,7 @@ app.use(cors({
     'http://localhost:5500',           // VS Code Live Server
     'http://127.0.0.1:5500',          // VS Code Live Server alternate
     'http://localhost:3000',           // common dev port
+    'https://thanushakitchen9.netlify.app/'  // deployed frontend URL
   ],
   methods:     ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   credentials: true
