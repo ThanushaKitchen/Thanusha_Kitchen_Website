@@ -795,31 +795,88 @@ function validatePayment() {
 }
 
 /* =====================================================
-   PLACE ORDER
+   PLACE ORDER — calls the real backend API
 ===================================================== */
-function placeOrder() {
+async function placeOrder() {
   if (!validatePayment()) return;
 
-  /* Simulate processing */
   const btn = document.querySelector('.btn-place-order');
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
 
-  setTimeout(() => {
-    /* Generate a random order ID */
-    const orderId = 'TK-' + Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('orderIdDisplay').textContent = 'ORDER #' + orderId;
+  try {
+    const items    = getCartItems();
+    const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
+    const freeShip = subtotal >= 599 && selectedDelivery === 'standard';
+    const charge   = freeShip ? 0 : deliveryCharge;
+    const total    = subtotal - discount + charge;
 
-    /* Hide step 3, show success */
-    document.getElementById('step3').style.display = 'none';
+    // Build the order payload matching what orderController.js expects
+    const payload = {
+      customer: {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName:  document.getElementById('lastName').value.trim(),
+        email:     document.getElementById('email').value.trim(),
+        phone:     document.getElementById('phone').value.trim()
+      },
+      address: {
+        line1:   document.getElementById('address1').value.trim(),
+        line2:   document.getElementById('address2').value.trim(),
+        city:    document.getElementById('city').value.trim(),
+        state:   document.getElementById('state').value,
+        pincode: document.getElementById('pincode').value.trim()
+      },
+      delivery: {
+        type:   selectedDelivery,
+        charge: charge,
+        note:   document.getElementById('deliveryNote').value.trim()
+      },
+      payment: {
+        method: selectedPayment
+      },
+      items: items.map(i => ({
+        id:     i.id,
+        name:   i.name,
+        weight: i.weight,
+        price:  i.price,
+        qty:    i.qty
+      })),
+      coupon:      discount > 0 ? { code: document.getElementById('couponInput').value.trim(), discountAmount: discount } : null,
+      subtotal:    subtotal,
+      totalAmount: total
+    };
+
+    // ── POST to backend ────────────────────────────────────
+    const response = await fetch('http://localhost:4000/api/orders', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.message || 'Order failed');
+    }
+
+    // ── Order saved — show success screen ─────────────────
+    document.getElementById('orderIdDisplay').textContent = 'ORDER #' + result.orderNumber;
+    document.getElementById('step3').style.display        = 'none';
     document.getElementById('step-success').style.display = 'block';
 
-    /* Clear cart from sessionStorage */
+    // Clear the cart now that order is placed
     sessionStorage.removeItem('tk_cart');
-
-    /* Scroll to top */
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 2200);
+
+  } catch (err) {
+    console.error('placeOrder error:', err);
+
+    // Re-enable button so customer can try again
+    btn.disabled  = false;
+    btn.innerHTML = '<i class="fa-solid fa-lock"></i> Place Order &amp; Pay Securely';
+
+    alert('Sorry, something went wrong placing your order.\n' + err.message + '\n\nPlease try again.');
+  }
 }
 
 /* =====================================================

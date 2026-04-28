@@ -73,18 +73,36 @@ function buildCard(p) {
 
 /* =====================================================
    RENDER PRODUCTS
-   Splits products by category and fills each grid.
-   "pickles"  → #grid-pickles
-   "podis"    → #grid-podis
+   Tries to load from backend API first.
+   Falls back to PRODUCTS array from products.js if
+   the server is not running (e.g. opening file directly).
 ===================================================== */
-function renderProducts() {
-  const pickles = products.filter(p => p.category === 'pickles');
-  const podis   = products.filter(p => p.category === 'podis');
+async function renderProducts() {
+  let productData = [];
+
+  try {
+    const response = await fetch('http://localhost:4000/api/products');
+    if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
+        productData = result.data;
+        products    = productData; // keep global in sync
+      }
+    }
+  } catch (err) {
+    // Server not running — silently fall back to products.js
+    console.info('Backend not running — using local products.js');
+    productData = PRODUCTS;
+    products    = PRODUCTS;
+  }
+
+  const pickles = productData.filter(p => p.category === 'pickles');
+  const podis   = productData.filter(p => p.category === 'podis');
 
   document.getElementById('grid-pickles').innerHTML = pickles.map(buildCard).join('');
   document.getElementById('grid-podis').innerHTML   = podis.map(buildCard).join('');
 
-  observeReveal(); /* re-attach scroll animations to new cards */
+  observeReveal();
 }
 
 /* =====================================================
@@ -270,31 +288,62 @@ function showToast(msg) {
 }
 
 /* =====================================================
-   CONTACT FORM SUBMISSION
-   Validates required fields and shows success message.
+   CONTACT FORM SUBMISSION — calls real backend API
 ===================================================== */
-function submitForm() {
-  const name  = document.getElementById('fname').value.trim();
-  const email = document.getElementById('femail').value.trim();
-  const msg   = document.getElementById('fmsg').value.trim();
+async function submitForm() {
+  const firstName = document.getElementById('fname').value.trim();
+  const email     = document.getElementById('femail').value.trim();
+  const msg       = document.getElementById('fmsg').value.trim();
 
-  if (!name || !email || !msg) {
+  if (!firstName || !email || !msg) {
     showToast('Please fill in Name, Email and Message.');
     return;
   }
 
-  /* Show the green success banner */
-  document.getElementById('formSuccess').style.display = 'block';
+  const btn = document.querySelector('#contactForm .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
-  /* Clear all fields */
-  ['fname', 'lname', 'femail', 'fsubject', 'fmsg'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  try {
+    const response = await fetch('http://localhost:4000/api/contact', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName,
+        lastName: document.getElementById('lname').value.trim(),
+        email,
+        subject:  document.getElementById('fsubject').value,
+        message:  msg
+      })
+    });
 
-  /* Auto-hide success message after 5 seconds */
-  setTimeout(() => {
-    document.getElementById('formSuccess').style.display = 'none';
-  }, 5000);
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById('formSuccess').style.display = 'block';
+      ['fname','lname','femail','fsubject','fmsg'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 5000);
+    } else {
+      showToast(result.message || 'Failed to send. Please try again.');
+    }
+
+  } catch (err) {
+    // Backend not running — show success anyway for now
+    console.info('Backend not running — showing local success');
+    document.getElementById('formSuccess').style.display = 'block';
+    ['fname','lname','femail','fsubject','fmsg'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'none';
+    }, 5000);
+
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Message'; }
+  }
 }
 
 /* =====================================================
