@@ -1,11 +1,3 @@
-// ============================================================
-//  server.js
-//  Main entry point for Thanusha's Kitchen backend server.
-//  Run with: node server.js
-//  Dev mode:  npm run dev  (auto-restarts on file changes)
-// ============================================================
-
-// Load environment variables from .env file FIRST
 require('dotenv').config();
 
 const express      = require('express');
@@ -13,69 +5,47 @@ const cors         = require('cors');
 const routes       = require('./routes/index');
 const errorHandler = require('./middleware/errorHandler');
 
-const app  = express();
-const PORT = process.env.PORT || 4000;
+const app = express();
 
-// ── Middleware ────────────────────────────────────────────────
+/* =====================================================
+   CORS — manually set headers so ALL origins work
+   This fixes "Failed to fetch" from Netlify/Vercel
+===================================================== */
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
 
-// CORS — tells the browser to allow requests from your frontend
-// Without this, the browser will block all API calls
-// app.use(cors({
-//   origin: [
-//     process.env.FRONTEND_URL,          // from .env e.g. http://127.0.0.1:5500
-//     'http://localhost:5500',           // VS Code Live Server
-//     'http://127.0.0.1:5500',          // VS Code Live Server alternate
-//     'http://localhost:3000',           // common dev port
-//     'https://thanusha-kitchen9.netlify.app' ,// deployed frontend URL
-//   ],
-//   origin: true,
-//   methods:     ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   credentials: true
-// }));
-
-app.use(cors({
-  origin: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-
-app.options('*', cors());
-
-// Parse incoming JSON request bodies
-// e.g. when checkout.html sends order data
+/* =====================================================
+   Body Parsers
+===================================================== */
 app.use(express.json());
-
-// Parse URL-encoded form data
 app.use(express.urlencoded({ extended: true }));
 
-// ── Routes ───────────────────────────────────────────────────
-// All routes are prefixed with /api
-// e.g. /api/products, /api/orders, /api/payment/create
+/* =====================================================
+   Routes
+===================================================== */
 app.use('/api', routes);
 
-// ── Root endpoint ────────────────────────────────────────────
+/* =====================================================
+   Root
+===================================================== */
 app.get('/', (req, res) => {
   res.json({
-    message:  "Welcome to Thanusha's Kitchen API",
-    version:  '1.0.0',
-    status:   'running',
-    endpoints: {
-      products:        'GET  /api/products',
-      singleProduct:   'GET  /api/products/:id',
-      createOrder:     'POST /api/orders',
-      getOrder:        'GET  /api/orders/:orderNumber',
-      createPayment:   'POST /api/payment/create',
-      verifyPayment:   'POST /api/payment/verify',
-      contact:         'POST /api/contact',
-      validateCoupon:  'POST /api/coupons/validate',
-      health:          'GET  /api/health',
-    }
+    message: "Thanusha's Kitchen API is running!",
+    status:  'running',
+    version: '1.0.0'
   });
 });
 
-// ── 404 handler ───────────────────────────────────────────────
+/* =====================================================
+   404 Handler
+===================================================== */
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -83,29 +53,19 @@ app.use((req, res) => {
   });
 });
 
-// ── Global error handler ──────────────────────────────────────
+/* =====================================================
+   Error Handler
+===================================================== */
 app.use(errorHandler);
 
-// ── Start the server ──────────────────────────────────────────
-// app.listen(PORT, () => {
-//   console.log('');
-//   console.log("🌶️  Thanusha's Kitchen Backend");
-//   console.log('================================');
-//   console.log(`🚀 Server running on http://localhost:${PORT}`);
-//   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-//   console.log(`📦 API Base: http://localhost:${PORT}/api`);
-//   console.log('');
-// });
-
+/* =====================================================
+   Start server — local only, NOT on Vercel
+===================================================== */
 if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
-    console.log('');
-    console.log("🌶️  Thanusha's Kitchen Backend");
-    console.log('================================');
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`📦 API Base: http://localhost:${PORT}/api`);
-    console.log('');
   });
 }
+
 module.exports = app;
