@@ -81,7 +81,8 @@ async function renderProducts() {
   let productData = [];
 
   try {
-    const response = await fetch('http://localhost:4000/api/products'); 
+    // const response = await fetch('http://localhost:4000/api/products');
+    const response = await fetch('https://thanusha-kitchen-website.vercel.app/api/products'); 
     if (response.ok) {
       const result = await response.json();
       if (result.success) {
@@ -304,7 +305,7 @@ async function submitForm() {
   if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
   try {
-    const response = await fetch('http://localhost:4000/api/contact', {
+    const response = await fetch('https://thanusha-kitchen-website.vercel.app/api/contact', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
