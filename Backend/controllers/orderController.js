@@ -4,6 +4,7 @@
 //  Called when customer clicks "Place Order" on checkout.html
 // ============================================================
 
+const { sendOrderConfirmation, sendOwnerNotification } = require('../services/emailService');
 const pool   = require('../config/db');
 
 // ── Helper: generate order number like TK-482931 ─────────────
@@ -167,6 +168,10 @@ const createOrder = async (req, res) => {
     await client.query('COMMIT');
 
     console.log(`✅ Order created: ${orderNumber}`);
+
+    // Send emails (don't await — don't block the response)
+    sendOrderConfirmation(orderNumber, req.body);
+    sendOwnerNotification(orderNumber, req.body);
 
     res.status(201).json({
       success:     true,
