@@ -20,19 +20,28 @@ const PORT = process.env.PORT || 4000;
 
 // CORS — tells the browser to allow requests from your frontend
 // Without this, the browser will block all API calls
+// app.use(cors({
+//   origin: [
+//     process.env.FRONTEND_URL,          // from .env e.g. http://127.0.0.1:5500
+//     'http://localhost:5500',           // VS Code Live Server
+//     'http://127.0.0.1:5500',          // VS Code Live Server alternate
+//     'http://localhost:3000',           // common dev port
+//     'https://thanusha-kitchen9.netlify.app' ,// deployed frontend URL
+//   ],
+//   origin: true,
+//   methods:     ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true
+// }));
+
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL,          // from .env e.g. http://127.0.0.1:5500
-    'http://localhost:5500',           // VS Code Live Server
-    'http://127.0.0.1:5500',          // VS Code Live Server alternate
-    'http://localhost:3000',           // common dev port
-    'https://thanusha-kitchen9.netlify.app' ,// deployed frontend URL
-  ],
   origin: true,
-  methods:     ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+
+app.options('*', cors());
 
 // Parse incoming JSON request bodies
 // e.g. when checkout.html sends order data
