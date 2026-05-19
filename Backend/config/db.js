@@ -1,10 +1,13 @@
 // ============================================================
 //  config/db.js
-//  PostgreSQL connection — works with Supabase
+//  Works with Supabase (DATABASE_URL) on Vercel
+//  and local PostgreSQL in development
 // ============================================================
 
 const { Pool } = require('pg');
 
+// Supabase uses DATABASE_URL with SSL
+// Local PostgreSQL uses individual variables
 const pool = process.env.DATABASE_URL
   ? new Pool({
       connectionString: process.env.DATABASE_URL,
@@ -13,16 +16,16 @@ const pool = process.env.DATABASE_URL
       }
     })
   : new Pool({
-      host:     process.env.DB_HOST,
-      port:     parseInt(process.env.DB_PORT),
-      database: process.env.DB_NAME,
-      user:     process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
+      host:     process.env.DB_HOST     || 'localhost',
+      port:     parseInt(process.env.DB_PORT) || 5432,
+      database: process.env.DB_NAME     || 'thanusha_kitchen',
+      user:     process.env.DB_USER     || 'postgres',
+      password: process.env.DB_PASSWORD || '',
     });
 
 pool.connect((err, client, release) => {
   if (err) {
-    console.error('❌ Supabase connection failed:', err.message);
+    console.error('❌ Database connection failed:', err.message);
   } else {
     console.log('✅ Connected to Supabase PostgreSQL');
     release();
