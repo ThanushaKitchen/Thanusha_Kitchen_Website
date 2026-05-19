@@ -77,14 +77,25 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // ── Start the server ──────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log('');
-  console.log("🌶️  Thanusha's Kitchen Backend");
-  console.log('================================');
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📦 API Base: http://localhost:${PORT}/api`);
-  console.log('');
-});
+// app.listen(PORT, () => {
+//   console.log('');
+//   console.log("🌶️  Thanusha's Kitchen Backend");
+//   console.log('================================');
+//   console.log(`🚀 Server running on http://localhost:${PORT}`);
+//   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+//   console.log(`📦 API Base: http://localhost:${PORT}/api`);
+//   console.log('');
+// });
 
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log('');
+    console.log("🌶️  Thanusha's Kitchen Backend");
+    console.log('================================');
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📦 API Base: http://localhost:${PORT}/api`);
+    console.log('');
+  });
+}
 module.exports = app;
